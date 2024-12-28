@@ -1,28 +1,18 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "../src/Components/Login";
-import Register from "../src/Components/Register";
-import AddCourse from "../src/Components/AddCourse";
-import CoursesList from "./Components/CoursesList";
 
-const App = () => {
-  const [token, setToken] = useState("");
+
+import './App.css'
+import Navbar from './Components/Navber'
+
+function App() {
+  
 
   return (
-    <Router>
-      <div className="container mx-auto p-4">
-        <h1 className="text-xl font-bold mb-4">Frontend Online Test</h1>
+    <div className="App">
+    <Navbar></Navbar>
+      <h1>Vite + React</h1>
+      
+    </div>
+  )
+}
 
-        <Routes>
-         
-          <Route path="/" element={<Login setToken={setToken} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/courses" element={<CoursesList />} />
-          <Route path="/add-course" element={<AddCourse token={token} />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-};
-
-export default App;
+export default App
