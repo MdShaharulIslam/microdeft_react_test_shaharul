@@ -1,65 +1,55 @@
-import  { useState } from 'react';
-import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
+import  { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('https://react-interview.crd4lc.easypanel.host/api/register', {
-        name,
-        email,
-        password,
-      });
-      setMessage('Registration successful!');
+      const response = await axios.post(
+        "https://react-interview.crd4lc.easypanel.host/api/register",
+        { name, email, password },
+        { headers: { Accept: "application/json" } }
+      );
+      console.log("Registration Successful:", response.data);
+      // Optionally, handle success here (e.g., redirect to login page)
     } catch (error) {
-      setMessage('Error during registration');
+      console.error("Registration Failed:", error.response?.data);
     }
   };
 
   return (
-    <div className="form-container">
-      <h2>Register</h2>
-      <Form>
-        <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-
-        <Button variant="primary" onClick={handleRegister}>
-          Register
-        </Button>
-      </Form>
-      {message && <p>{message}</p>}
+    <div className="mb-4">
+      <h2 className="text-lg font-semibold">Register</h2>
+      <input
+        type="text"
+        placeholder="Name"
+        className="border p-2 mb-2 w-full"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        className="border p-2 mb-2 w-full"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        className="border p-2 mb-2 w-full"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button
+        onClick={handleRegister}
+        className="bg-blue-500 text-white p-2 w-full"
+      >
+        Register
+      </button>
     </div>
   );
 };
