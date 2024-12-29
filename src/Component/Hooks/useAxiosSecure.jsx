@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import useAuth from "./useAuth"
 
 const axiosSecure = axios.create({
-  baseURL: "https://easysubstech-server.vercel.app",
+  baseURL: "",
 })
 
 const useAxiosSecure = () => {
@@ -12,7 +12,7 @@ const useAxiosSecure = () => {
   const { logOut } = useAuth()
 
   useEffect(() => {
-    // Add request interceptor
+
     const requestInterceptor = axiosSecure.interceptors.request.use(
       function (config) {
         const token = localStorage.getItem("access-token")
@@ -26,7 +26,7 @@ const useAxiosSecure = () => {
       }
     )
 
-    // Add response interceptor
+ 
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (response) => {
         return response
@@ -42,7 +42,7 @@ const useAxiosSecure = () => {
       }
     )
 
-    // Clean up interceptors when component is unmounted
+    
     return () => {
       axiosSecure.interceptors.request.eject(requestInterceptor)
       axiosSecure.interceptors.response.eject(responseInterceptor)
