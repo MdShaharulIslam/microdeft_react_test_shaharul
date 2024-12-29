@@ -1,18 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "../src/Component/Header/Header";
+import Footer from "../src/Component/Footer/Footer";
+import Home from "./Component/Pages/Home/Home";
 
 
-import './App.css'
-import Navbar from './Components/Navber'
+const App = () => (
+  <Router>
+    <Header />
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+    <Footer />
+  </Router>
+);
 
-function App() {
-  
-
-  return (
-    <div className="App">
-    <Navbar></Navbar>
-      <h1>Vite + React</h1>
-      
-    </div>
-  )
-}
-
-export default App
+export default App;

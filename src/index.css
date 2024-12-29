@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.neon-container {
+    text-align: center;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .neon-container img {
+    border-radius: 50%;
+    border: 4px solid #00ffff; /* Neon Blue */
+    box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 45px #ff00ff; /* Neon Pink */
+    width: 15rem;
+    height: 15rem;
+    animation: neonDualGlow 1.5s infinite alternate;
+  }
+  
+  @keyframes neonDualGlow {
+    from {
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+    }
+    to {
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #00ffff;
+    }
+  }
+  
+
+
+
+  .neon-wrapper {
+    display: inline-block;
+    /* padding: 8px; */
+    border-radius: 50%; /* Circular container */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff; /* Dual-color glow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: neonGlow 1.5s infinite alternate;
+  }
+  
+  .neon-wrapper:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #00ffff; /* Intensify glow */
+  }
+  
+  .neon-logo {
+    width: 3rem; /* Equivalent to Tailwind's w-12 */
+    height: 3rem; /* Equivalent to Tailwind's h-12 */
+    border-radius: 50%; /* Circular logo */
+  }
+    
+  @keyframes neonGlow {
+    from {
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #ff00ff;
+    }
+    to {
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #00ffff;
+    }
+  }
+  
+  
