@@ -11,13 +11,13 @@ const AddServices = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  // Handle form input changes dynamically
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourse((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit data to the backend
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -62,7 +62,7 @@ const AddServices = () => {
     >
       <h1 className="text-2xl font-bold mb-6">Create a New Course</h1>
 
-      {/* Course Information */}
+      
       <div className="mb-8">
         <label className="block text-sm font-medium mb-1">Course Title</label>
         <input
@@ -111,7 +111,6 @@ const AddServices = () => {
         />
       </div>
 
-      {/* Buttons */}
       <div className="mt-8 flex justify-end gap-4">
         <button
           type="button"
