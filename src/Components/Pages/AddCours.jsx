@@ -9,7 +9,7 @@ const AddCourse = () => {
   const [instructorName, setInstructorName] = useState("");
 
   const handleAddCourse = async (e) => {
-    e.preventDefault(); // Prevent page reload on form submission
+    e.preventDefault(); 
 
     try {
       const token = localStorage.getItem("authToken");
@@ -22,12 +22,13 @@ const AddCourse = () => {
         instructor_name: instructorName,
       };
 
+      // Send data to the API
       const response = await axios.post(
         "https://react-interview.crd4lc.easypanel.host/api/course",
         courseData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the token
+            Authorization: `Bearer ${token}`, // Pass the token for authorization
             Accept: "application/json",
           },
         }

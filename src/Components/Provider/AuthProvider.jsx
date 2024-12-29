@@ -10,7 +10,6 @@ import {
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase.config";
 import PropTypes from "prop-types";
-import axios from "axios";
 
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
@@ -39,6 +38,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setIsLoading(true);
+    localStorage.removeItem("authToken"); 
     return signOut(auth);
   };
 
@@ -49,34 +49,23 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const loggedUserEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: loggedUserEmail };
       setUser(currentUser);
       setIsLoading(false);
 
       if (currentUser) {
-        axios
-          .post("/jwt", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log("Token working", res.data);
-          });
+        
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNjEyMzkwMjIyfQ.8aW9dszK81C3-XZmflkcXGnI1bcJf22bQZv_E1jTxiU'; 
+        localStorage.setItem("authToken", token);
+        console.log("User logged in:", currentUser);
       } else {
-        axios
-          .post("/logout", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
+        console.log("User logged out");
       }
     });
 
     return () => {
       unSubscribe();
     };
-  }, [user]);
+  }, []);
 
   const authentications = {
     user,

@@ -8,6 +8,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
   const handleLogin = async () => {
     try {
       const response = await axios.post(
@@ -16,12 +17,12 @@ const SignIn = () => {
         { headers: { Accept: "application/json" } }
       );
       console.log("Login Successful:", response.data);
-      const token = response.data.token;
 
-      // Store the token in local storage
+
+      const token = response.data.token;
       localStorage.setItem("authToken", token);
 
-      // Redirect to the AddCourse component
+   
       navigate("/add-course");
     } catch (error) {
       if (error.response) {
@@ -64,14 +65,14 @@ const SignIn = () => {
         Sign In
       </button>
       <p className="text-gray-600 font-medium text-center my-4">
-              Do not have an account{" "}
-              <Link
-                to={"/signUp"}
-                className="font-bold text-[#008FD4] hover:text-[#0870A1]"
-              >
-                Sign In
-              </Link>
-            </p>
+        Do not have an account?{" "}
+        <Link
+          to={"/signUp"}
+          className="font-bold text-[#008FD4] hover:text-[#0870A1]"
+        >
+          Sign Up
+        </Link>
+      </p>
     </div>
   );
 };

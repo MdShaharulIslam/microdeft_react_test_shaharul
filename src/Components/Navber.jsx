@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAuth } from "../Components/Provider/AuthProvider";
@@ -58,7 +58,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`${
             isOpen ? "translate-x-0 opacity-100" : "opacity-0 -translate-x-full"
@@ -80,7 +79,7 @@ const Navbar = () => {
               Add Course
             </NavLink>
             <NavLink
-              to="/course-list"
+              to="/courseList"
               className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
               activeClassName="text-blue-500"
             >
@@ -92,16 +91,9 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             {user ? (
               <>
-                <NavLink
-                  to="/profile"
-                  className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-                >
-                  <img
-                    className="w-8 h-8 rounded-full"
-                    src={user.photoURL}
-                    alt="User"
-                  />
-                </NavLink>
+                <span className="text-gray-700 dark:text-gray-200">
+                  Hello, {user.name || "User"}!
+                </span>
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"

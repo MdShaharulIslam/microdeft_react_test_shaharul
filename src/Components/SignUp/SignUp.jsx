@@ -1,45 +1,82 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import singInImg from "../../assets/signin.jpg";
-
-import useAuth from "../../Components/hooks/useAuth";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { createUser, makeProfile } = useAuth();
   const navigate = useNavigate();
 
-  // State variables to handle form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCreateUser = (e) => {
+  const handleCreateUser = async (e) => {
     e.preventDefault();
 
+    // Input Validation
     if (password.length < 6) {
       return toast.error("Password should be at least 6 characters");
     }
 
-    if (!/(?=.*[A-Z])/.test(password)) {
-      return toast.error("Password should have at least one uppercase letter.");
-    }
-
-    createUser(email, password)
-      .then((result) => {
-        if (result.user) {
-          makeProfile(name).then(() => {
-            toast.success("Sign Up successful.");
-            navigate("/");
-          });
+    // API Request
+    try {
+      const handleCreateUser = async (e) => {
+        e.preventDefault();
+      
+        if (password.length < 6) {
+          return toast.error("Password should be at least 6 characters");
         }
-      })
-      .catch((error) => {
-        toast.error(`${error.message}`);
-      });
+      
+        try {
+          const response = await fetch(
+            "https://react-interview.crd4lc.easypanel.host/api/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                password,
+              }),
+            }
+          );
+      
+          // Log response status and content for debugging
+          console.log("Response Status:", response.status);
+          const textResponse = await response.text();
+          console.log("Raw Response:", textResponse);
+      
+          if (!response.ok) {
+            throw new Error(`Server Error: ${textResponse}`);
+          }
+      
+          const result = JSON.parse(textResponse); // Parse if it's valid JSON
+          toast.success("Registration successful!");
+          navigate("/"); // Redirect after success
+        } catch (error) {
+          console.error("Error:", error);
+          toast.error("Registration failed. Please try again.");
+        }
+      };
+      
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Something went wrong");
+      }
+
+      const result = await response.json();
+      console.log(result);
+      toast.success("Registration successful!");
+      navigate("/"); // Redirect to homepage or login page
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message);
+    }
   };
 
-  
   return (
     <div className="max-w-screen-xl mx-auto px-5 md:px-10 my-7 lg:my-10 bg-gray-100 rounded-2xl">
       <div className="w-full text-black flex gap-5 justify-between items-center py-10">
@@ -108,7 +145,6 @@ const SignUp = () => {
               </button>
             </form>
             <div className="divider">Or</div>
-            
             <p className="text-gray-600 font-medium text-center my-4">
               Do not have an account{" "}
               <Link
